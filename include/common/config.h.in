@@ -1,0 +1,15 @@
+#pragma once
+
+namespace stereolab
+{
+namespace common
+{
+/* Version number of package */
+#define VERSION "$PROJECT_VERSION"
+#define VERSION_MAJOR ${PROJECT_VERSION_MAJOR}
+#define VERSION_MINOR ${PROJECT_VERSION_MINOR}
+#define VERSION_MICRO ${PROJECT_VERSION_PATCH}
+
+#cmakedefine ENABLE_STEREO_LAB_DEBUG 1
+}  // namespace common
+}  // namespace stereolab
