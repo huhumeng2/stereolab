@@ -1,3 +1,9 @@
+/*
+ *************************************************************************
+ * NOTE: This file is auto generated from config.h.in, dot not modify it
+ *************************************************************************
+ */
+
 #pragma once
 
 namespace stereolab
@@ -5,10 +11,19 @@ namespace stereolab
 namespace common
 {
 /* Version number of package */
-#define VERSION "$PROJECT_VERSION"
+#define VERSION "${PROJECT_VERSION}"
+
 #define VERSION_MAJOR ${PROJECT_VERSION_MAJOR}
 #define VERSION_MINOR ${PROJECT_VERSION_MINOR}
 #define VERSION_MICRO ${PROJECT_VERSION_PATCH}
+
+#define LOG_OFF   0
+#define LOG_ERROR 1
+#define LOG_WARN  2
+#define LOG_DEBUG 3
+#define LOG_INFO  4
+
+#define LOG_LEVEL LOG_INFO
 
 #cmakedefine ENABLE_STEREO_LAB_DEBUG 1
 }  // namespace common
