@@ -14,9 +14,23 @@ message(STATUS "Operating System: " ${CMAKE_SYSTEM_NAME})
 message(STATUS "Compiler ID: " ${CMAKE_CXX_COMPILER_ID})
 
 if(CMAKE_COMPILER_IS_GNUCXX)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O3")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -O3")
 else()
-    set(CMAKE_CXX_FLAGS "/MT /W4")
+    set(CompilerFlags
+        CMAKE_CXX_FLAGS
+        CMAKE_CXX_FLAGS_DEBUG
+        CMAKE_CXX_FLAGS_RELEASE
+        CMAKE_C_FLAGS
+        CMAKE_C_FLAGS_DEBUG
+        CMAKE_C_FLAGS_RELEASE
+    )
+    foreach(CompilerFlag ${CompilerFlags})
+        string(REPLACE "/MT" "/MD" ${CompilerFlag} "${${CompilerFlag}}")
+    endforeach()
+
+    set(CMAKE_CXX_FLAGS_RELEASE "/MT")
+    set(CMAKE_CXX_FLAGS_DEBUG "/MTd")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /std:c++17 /O2 /Zc:wchar_t-")
 endif()
 
 option(ENABLE_STEREO_LAB_DEBUG "Enable stereo lab debug code" On)
@@ -29,6 +43,14 @@ configure_file(
 )
 
 find_package(OpenCV REQUIRED)
+
+add_library(sl_common
+    ${PROJECT_SOURCE_DIR}/src/common/util.cc
+)
+target_link_libraries(sl_common
+    PUBLIC
+    ${OpenCV_LIBS}
+)
 
 if (${ENBALE_BUILD_TEST})
     enable_testing()

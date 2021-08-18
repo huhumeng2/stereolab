@@ -34,3 +34,4 @@
 .vscode/*
 build/*
 include/common/config.h
+test/test_config.h

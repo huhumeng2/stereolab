@@ -22,7 +22,7 @@ namespace common
 
 #define SL_PRINT_RAW(Level, _fmt, ...)   \
     {                                    \
-        if(Level <= LOG_LEVEL)           \
+        if constexpr(Level <= LOG_LEVEL)           \
         {                                \
             printf(_fmt, ##__VA_ARGS__); \
         }                                \
