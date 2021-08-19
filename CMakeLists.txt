@@ -46,6 +46,11 @@ find_package(OpenCV REQUIRED)
 
 add_library(sl_common
     ${PROJECT_SOURCE_DIR}/src/common/util.cc
+    ${PROJECT_SOURCE_DIR}/src/common/mb_data_loader.cc
+)
+target_include_directories(sl_common
+    PUBLIC
+    ${OpenCV_INCLUDE_DIRS}
 )
 target_link_libraries(sl_common
     PUBLIC

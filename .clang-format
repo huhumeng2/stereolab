@@ -21,11 +21,11 @@ AlignTrailingComments: true
 # 允许函数声明的所有参数在放在下一行
 AllowAllParametersOfDeclarationOnNextLine: true
 # 允许短的块放在同一行
-AllowShortBlocksOnASingleLine: false
+AllowShortBlocksOnASingleLine: true
 # 允许短的case标签放在同一行
 AllowShortCaseLabelsOnASingleLine: false
 # 允许短的函数放在同一行: None, InlineOnly(定义在类中), Empty(空函数), Inline(定义在类中，空函数), All
-AllowShortFunctionsOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: All
 # 允许短的if语句保持在同一行
 AllowShortIfStatementsOnASingleLine: false
 # 允许短的循环保持在同一行
@@ -142,7 +142,7 @@ PenaltyExcessCharacter: 1000000
 # 将函数的返回类型放到它自己的行的penalty
 PenaltyReturnTypeOnItsOwnLine: 60
 # 指针和引用的对齐: Left, Right, Middle
-PointerAlignment: Left
+PointerAlignment: Right
 # 允许重新排版注释
 ReflowComments: true
 # 允许排序#include

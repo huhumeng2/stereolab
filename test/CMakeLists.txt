@@ -25,11 +25,23 @@ add_executable(test_util ${PROJECT_SOURCE_DIR}/test/code/test_util.cc)
 target_include_directories(
     test_util
     PRIVATE
-    ${OpenCV_INCLUDE_DIRS}
     ${GTEST_INCLUDE_DIRS}
 )
 target_link_libraries(
     test_util
+    PRIVATE
+    sl_common
+    ${GTEST_LIBRARIES}
+)
+
+add_executable(test_dataloader ${PROJECT_SOURCE_DIR}/test/code/test_dataloader.cc)
+target_include_directories(
+    test_dataloader
+    PRIVATE
+    ${GTEST_INCLUDE_DIRS}
+)
+target_link_libraries(
+    test_dataloader
     PRIVATE
     sl_common
     ${GTEST_LIBRARIES}
@@ -43,4 +55,9 @@ add_test(
 add_test(
     NAME test_util 
     COMMAND test_util
+)
+
+add_test(
+    NAME test_dataloader 
+    COMMAND test_dataloader
 )
