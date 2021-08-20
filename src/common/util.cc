@@ -1,6 +1,8 @@
 #include "common/util.h"
 #include "common/info_log.h"
 
+#include <opencv2/imgproc/imgproc.hpp>
+
 namespace stereolab
 {
 namespace common
@@ -13,8 +15,8 @@ void DispEvaluateResult::print_result()
               bad_rate, invalid_rate, total_bad_rate, average_epe);
 }
 
-void evaluate_disp(const cv::Mat& disp, const cv::Mat& disp_gt, const cv::Mat& mask,
-                   DispEvaluateResult* result, float max_valid, float bad_ths)
+void evaluate_disp(const cv::Mat &disp, const cv::Mat &disp_gt, const cv::Mat &mask,
+                   DispEvaluateResult *result, float max_valid, float bad_ths)
 {
 
     if (result == nullptr)
@@ -60,7 +62,7 @@ void evaluate_disp(const cv::Mat& disp, const cv::Mat& disp_gt, const cv::Mat& m
         {
             float gt = disp_gt.at<float>(y, x);
 
-            if (gt >= max_valid)
+            if (gt >= max_valid || gt == 0)
                 continue;
 
             float d = disp.at<float>(y, x);
@@ -92,6 +94,38 @@ void evaluate_disp(const cv::Mat& disp, const cv::Mat& disp_gt, const cv::Mat& m
     result->total_bad_rate = 100.0f * (bad + invalid) / (n + 1);
     result->average_epe = sum_err / (n - invalid + 1);
     result->number = n;
+}
+
+float l1_dist(const cv::Vec3b &a, const cv::Vec3b &b)
+{
+    cv::Vec3f af = a;
+    cv::Vec3f bf = b;
+
+    cv::Vec3f diff = af - bf;
+
+    return std::abs(diff(0)) + std::abs(diff(1)) + std::abs(diff(2));
+}
+
+float l2_dist(const cv::Vec3b &a, const cv::Vec3b &b)
+{
+    cv::Vec3f af = a;
+    cv::Vec3f bf = b;
+
+    cv::Vec3f diff = af - bf;
+    
+    return diff.dot(diff);;
+}
+
+cv::Mat disp16_to_color(const cv::Mat disp_16, uint16_t max, uint16_t min)
+{
+    cv::Mat disp8u;
+    cv::Mat disp = cv::min(cv::max(disp_16, min), max);
+    disp.convertTo(disp8u, CV_8UC1, 255.0 / (max - min), -255.0 * min / (max - min));
+
+    cv::Mat disp_color;
+    cv::applyColorMap(disp8u, disp_color, cv::COLORMAP_JET);
+
+    return disp_color;
 }
 }  // namespace common
 }  // namespace stereolab

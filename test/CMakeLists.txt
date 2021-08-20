@@ -47,6 +47,19 @@ target_link_libraries(
     ${GTEST_LIBRARIES}
 )
 
+add_executable(test_stereo_match ${PROJECT_SOURCE_DIR}/test/code/test_stereo_match.cc)
+target_include_directories(
+    test_stereo_match
+    PRIVATE
+    ${GTEST_INCLUDE_DIRS}
+)
+target_link_libraries(
+    test_stereo_match
+    PRIVATE
+    sl_algorithm
+    ${GTEST_LIBRARIES}
+)
+
 add_test(
     NAME test_helloworld 
     COMMAND test_helloworld
@@ -60,4 +73,9 @@ add_test(
 add_test(
     NAME test_dataloader 
     COMMAND test_dataloader
+)
+
+add_test(
+    NAME test_stereo_match 
+    COMMAND test_stereo_match
 )

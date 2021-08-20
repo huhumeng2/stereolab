@@ -12,6 +12,8 @@ namespace common
 class DataLoader
 {
 public:
+    DataLoader::DataLoader() : init_(false) {}
+
     virtual ~DataLoader() {}
 
     virtual bool configure(const std::string &data_folder) = 0;
@@ -23,6 +25,8 @@ public:
     size_t data_size() const { return left_file_name_.size(); }
 
 protected:
+    bool init_;
+
     std::string data_folder_;
     std::vector<std::string> left_file_name_, right_file_name_;
 };

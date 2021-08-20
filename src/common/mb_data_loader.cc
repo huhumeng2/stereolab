@@ -37,11 +37,18 @@ bool MiddleburyDataLoader::configure(const std::string &data_folder)
         }
     }
 
+    init_ = true;
+
     return true;
 }
 
 bool MiddleburyDataLoader::get_stereo_data(StereoData *data)
 {
+    if (!init_)
+    {
+        return false;
+    }
+
     if (data_index_ >= data_size())
     {
         return false;

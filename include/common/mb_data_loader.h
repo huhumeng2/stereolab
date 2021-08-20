@@ -9,7 +9,7 @@ namespace common
 class MiddleburyDataLoader : public DataLoader
 {
 public:
-    MiddleburyDataLoader() : data_index_(0) {}
+    MiddleburyDataLoader() : DataLoader(), data_index_(0) {}
 
     ~MiddleburyDataLoader() {}
 
