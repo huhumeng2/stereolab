@@ -2,7 +2,7 @@
 
 namespace stereolab
 {
-namespace common
+namespace algorithm
 {
 
 struct BlockMatchParam
@@ -35,11 +35,11 @@ class StereoMatchBM : public StereoMatch
 public:
     virtual bool configure(const nlohmann::json &config) override;
 
-    virtual bool compute(const StereoData &data, cv::Mat &disp) override;
+    virtual bool compute(const common::StereoData &data, cv::Mat &disp) override;
 
 private:
     BlockMatchParam param_;
 };
 
-}  // namespace common
+}  // namespace algorithm
 }  // namespace stereolab

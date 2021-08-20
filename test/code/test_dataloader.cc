@@ -32,10 +32,10 @@ TEST(DATALOADER_TEST, EVALUATE_MIDDLEBURY)
     bool ret = dataloader->get_stereo_data(&data);
     EXPECT_FALSE(ret);
 
-    ret = dataloader->get_gt_disp(1, 20, &disp);
+    ret = dataloader->get_gt_disp(0, dataloader->data_size(), &disp);
     EXPECT_FALSE(ret);
 
-    ret = dataloader->get_gt_disp(1, 20, &disp);
+    ret = dataloader->get_gt_disp(1, dataloader->data_size(), &disp);
     EXPECT_FALSE(ret);
 
     delete dataloader;

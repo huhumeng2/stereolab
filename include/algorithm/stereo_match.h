@@ -6,7 +6,7 @@
 
 namespace stereolab
 {
-namespace common
+namespace algorithm
 {
 enum class CostType : uint32_t
 {
@@ -30,7 +30,7 @@ public:
 
     virtual bool configure(const nlohmann::json &config) = 0;
 
-    virtual bool compute(const StereoData &data, cv::Mat &disp) = 0;
+    virtual bool compute(const common::StereoData &data, cv::Mat &disp) = 0;
 
     template <typename T>
     static float sub_pixel_refine(T cost1, T cost2, T cost3)
@@ -43,5 +43,5 @@ protected:
     bool init_;
 };
 
-}  // namespace common
+}  // namespace algorithm
 }  // namespace stereolab

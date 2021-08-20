@@ -6,7 +6,7 @@
 
 namespace stereolab
 {
-namespace common
+namespace algorithm
 {
 
 bool StereoMatchBM::configure(const nlohmann::json &config)
@@ -23,7 +23,7 @@ bool StereoMatchBM::configure(const nlohmann::json &config)
     return true;
 }
 
-bool StereoMatchBM::compute(const StereoData &data, cv::Mat &disp)
+bool StereoMatchBM::compute(const common::StereoData &data, cv::Mat &disp)
 {
     if (!init_)
         return false;
@@ -67,9 +67,9 @@ bool StereoMatchBM::compute(const StereoData &data, cv::Mat &disp)
                         int x2 = std::min(std::max(0, c + j - d), im0.cols - 1);
 
                         if (param_.cost_type == CostType::kSAD)
-                            error += l1_dist(im0.at<cv::Vec3b>(y1, x1), im1.at<cv::Vec3b>(y1, x2));
+                            error += common::l1_dist(im0.at<cv::Vec3b>(y1, x1), im1.at<cv::Vec3b>(y1, x2));
                         else if (param_.cost_type == CostType::kSSD)
-                            error += std::sqrt(l2_dist(im0.at<cv::Vec3b>(y1, x1), im1.at<cv::Vec3b>(y1, x2)) / 3.0f);
+                            error += std::sqrt(common::l2_dist(im0.at<cv::Vec3b>(y1, x1), im1.at<cv::Vec3b>(y1, x2)) / 3.0f);
                     }
                 }
 
@@ -107,5 +107,5 @@ bool StereoMatchBM::compute(const StereoData &data, cv::Mat &disp)
     return true;
 }
 
-}  // namespace common
+}  // namespace algorithm
 }  // namespace stereolab

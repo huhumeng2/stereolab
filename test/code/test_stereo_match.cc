@@ -11,6 +11,7 @@
 
 using namespace stereolab;
 using namespace common;
+using namespace algorithm;
 
 TEST(STEREO_MATCH_TEST, STEREO_MATCH_BM)
 {
@@ -48,7 +49,7 @@ TEST(STEREO_MATCH_TEST, STEREO_MATCH_BM)
 
     double min_value, max_value;
     cv::minMaxIdx(disp_gt, &min_value, &max_value);
-    std::cout << "min disp: " << min_value << " max disp: " << max_value << std::endl;
+    SL_PRINTI("min disp = %lf, max disp = %lf\n", min_value, max_value);
 
     cv::Mat disp_gt_float, disp_float;
     disp.convertTo(disp_float, CV_32FC1, 1.0 / 16.0);
@@ -57,7 +58,7 @@ TEST(STEREO_MATCH_TEST, STEREO_MATCH_BM)
     DispEvaluateResult result;
     evaluate_disp(disp_float, disp_gt_float, cv::Mat(), &result, 64.0, 2.0);
     result.print_result();
-
+#if 0
     cv::Mat disp_gt_color = disp16_to_color(disp_gt, static_cast<uint16_t>(max_value), 0);
     cv::imshow("disp_gt", disp_gt_color);
 
@@ -68,6 +69,7 @@ TEST(STEREO_MATCH_TEST, STEREO_MATCH_BM)
 
     cv::imshow("left | right | disp", imshow);
     cv::waitKey(0);
+#endif
 }
 
 int main(int argc, char **argv)
