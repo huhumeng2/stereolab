@@ -28,6 +28,16 @@ class StereoMatch
 public:
     StereoMatch::StereoMatch() : init_(false) {}
 
+    bool check_data_input(const common::StereoData &data) const
+    {
+        if (data.left.empty() || data.right.empty() || (data.right.size() != data.left.size()))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     virtual bool configure(const nlohmann::json &config) = 0;
 
     virtual bool compute(const common::StereoData &data, cv::Mat &disp) = 0;

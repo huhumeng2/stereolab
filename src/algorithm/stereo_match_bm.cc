@@ -11,7 +11,15 @@ namespace algorithm
 
 bool StereoMatchBM::configure(const nlohmann::json &config)
 {
-    config["stereo_bm"].get_to(param_);
+    try
+    {
+        config["stereo_bm"].get_to(param_);
+    }
+    catch (const std::exception &e)
+    {
+        SL_PRINTE("%s\n", e.what());
+        return false;
+    }
 
     if (param_.cost_type > CostType::kSSD)
     {
@@ -26,9 +34,12 @@ bool StereoMatchBM::configure(const nlohmann::json &config)
 bool StereoMatchBM::compute(const common::StereoData &data, cv::Mat &disp)
 {
     if (!init_)
+    {
+        SL_PRINTE("Init algorithm first!");
         return false;
+    }
 
-    if (data.left.empty() || data.right.empty() || (data.right.size() != data.left.size()))
+    if (!check_data_input(data))
     {
         SL_PRINTE("Image size not match required\n");
         return false;

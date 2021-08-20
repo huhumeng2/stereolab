@@ -60,6 +60,7 @@ target_link_libraries(sl_common
 
 add_library(sl_algorithm
     ${PROJECT_SOURCE_DIR}/src/algorithm/stereo_match_bm.cc
+    ${PROJECT_SOURCE_DIR}/src/algorithm/stereo_match_pm.cc
 )
 target_link_libraries(sl_algorithm
     PUBLIC

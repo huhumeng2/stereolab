@@ -26,5 +26,6 @@ float l2_dist(const cv::Vec3b &a, const cv::Vec3b &b);
 
 cv::Mat disp16_to_color(const cv::Mat disp_16, uint16_t max, uint16_t min);
 
+cv::Vec3d gen_random_unit_vec3d();
 }  // namespace common
 }  // namespace stereolab

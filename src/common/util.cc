@@ -112,8 +112,9 @@ float l2_dist(const cv::Vec3b &a, const cv::Vec3b &b)
     cv::Vec3f bf = b;
 
     cv::Vec3f diff = af - bf;
-    
-    return diff.dot(diff);;
+
+    return diff.dot(diff);
+    ;
 }
 
 cv::Mat disp16_to_color(const cv::Mat disp_16, uint16_t max, uint16_t min)
@@ -126,6 +127,15 @@ cv::Mat disp16_to_color(const cv::Mat disp_16, uint16_t max, uint16_t min)
     cv::applyColorMap(disp8u, disp_color, cv::COLORMAP_JET);
 
     return disp_color;
+}
+
+cv::Vec3d gen_random_unit_vec3d()
+{
+    double theta = cv::theRNG().uniform(0.0, CV_PI);
+    double phi = cv::theRNG().uniform(0.0, CV_PI * 2.0);
+    double cosT = cos(theta), sinT = sin(theta);
+    double cosP = cos(phi), sinP = sin(phi);
+    return cv::Vec3d(sinT * cosP, sinT * sinP, cosT);
 }
 }  // namespace common
 }  // namespace stereolab
