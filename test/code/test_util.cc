@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 
 #include "../test_config.h"
-#include "common/util.h"
 #include "common/info_log.h"
+#include "common/util.h"
 
 #include <filesystem>
 
@@ -30,10 +30,19 @@ TEST(EVALUATE_DISP_TEST, EVALUATE_DISP_SAME)
     EXPECT_EQ(eval_result.invalid_rate, 0.0);
     EXPECT_EQ(eval_result.total_bad_rate, 0.0);
     EXPECT_EQ(eval_result.average_epe, 0.0);
-    EXPECT_EQ(eval_result.number, disparity.rows * disparity.cols);
 }
 
-int main(int argc, char** argv)
+TEST(UNIT_RANDOM_VECTOR_TEST, RAMDOM_VECTOR)
+{
+    for (int i = 0; i < 10000; ++i)
+    {
+        cv::Vec3d v = gen_random_unit_vec3d();
+        double norm2 = v.dot(v);
+        EXPECT_NEAR(norm2, 1.0, 1e-8);
+    }
+}
+
+int main(int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

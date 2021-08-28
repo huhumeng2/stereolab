@@ -1,7 +1,7 @@
 #pragma once
 
-#include "algorithm/stereo_match.h"
 #include "algorithm/disparity_plane.h"
+#include "algorithm/stereo_match.h"
 
 namespace stereolab
 {
@@ -48,6 +48,9 @@ NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(PatchMatchParam,
 
 class StereoMatchPM : public StereoMatch
 {
+
+    constexpr static float kPenalty = 120.0f;
+
 public:
     StereoMatchPM();
 
@@ -58,15 +61,27 @@ public:
     virtual bool compute(const common::StereoData &data, cv::Mat &disp) override;
 
 private:
-    void init_random_plane(const cv::Size &size);
+    float color_weight(const cv::Vec3b &p, const cv::Vec3b &q) const;
 
-    void convert_to_disp(cv::Mat &disp);
+    void compute_pixel_weight(const cv::Mat &image, cv::Mat &weight, int window_size);
 
-    cv::Mat_<DisparityPlane> disp_planes_;
+    void init_random_plane(const cv::Size &size, cv::Mat_<DisparityPlane> &disp_planes, int sign);
+
+    void convert_to_disp(const cv::Mat_<DisparityPlane> &disp_planes, cv::Mat &disp, int sign);
+
+    float plane_match_cost(const DisparityPlane &plane, int side, int x, int y, int window_size);
+
+    void evaluate_planes_cost(const cv::Mat &im0, const cv::Mat &im1,
+                              const cv::Mat_<DisparityPlane> disp_plane,
+                              cv::Mat &cost);
+
+    cv::Mat weight_[2];
+    cv::Mat image_[2];
+    cv::Mat sobel_x_[2], sobel_y_[2];
+    cv::Mat_<DisparityPlane> disp_planes_[2];
 
     PatchMatchParam param_;
 };
 
 }  // namespace algorithm
 }  // namespace stereolab
-

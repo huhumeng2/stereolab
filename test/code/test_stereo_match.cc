@@ -94,13 +94,13 @@ TEST_F(StereoMatchTestSuite, STEREO_MATCH_PM)
         "{"
         "\"stereo_pm\": {"
         "    \"alpha\": 0.8999999761581421,"
-        "    \"block_size\": -968835696,"
+        "    \"block_size\": 11,"
         "    \"gamma\": 10.0,"
         "    \"iter_num\": 430,"
         "    \"max_disp\": 72,"
         "    \"min_disp\": 0,"
         "    \"tau_c\": 10.0,"
-        "    \"tau_g\": 2.0"
+        "    \"tau_g\": 4.0"
         "}"
         "}";
 

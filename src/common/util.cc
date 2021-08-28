@@ -96,16 +96,6 @@ void evaluate_disp(const cv::Mat &disp, const cv::Mat &disp_gt, const cv::Mat &m
     result->number = n;
 }
 
-float l1_dist(const cv::Vec3b &a, const cv::Vec3b &b)
-{
-    cv::Vec3f af = a;
-    cv::Vec3f bf = b;
-
-    cv::Vec3f diff = af - bf;
-
-    return std::abs(diff(0)) + std::abs(diff(1)) + std::abs(diff(2));
-}
-
 float l2_dist(const cv::Vec3b &a, const cv::Vec3b &b)
 {
     cv::Vec3f af = a;
@@ -133,8 +123,8 @@ cv::Vec3d gen_random_unit_vec3d()
 {
     double theta = cv::theRNG().uniform(0.0, CV_PI);
     double phi = cv::theRNG().uniform(0.0, CV_PI * 2.0);
-    double cosT = cos(theta), sinT = sin(theta);
-    double cosP = cos(phi), sinP = sin(phi);
+    double cosT = std::cos(theta), sinT = std::sin(theta);
+    double cosP = std::cos(phi), sinP = std::sin(phi);
     return cv::Vec3d(sinT * cosP, sinT * sinP, cosT);
 }
 }  // namespace common

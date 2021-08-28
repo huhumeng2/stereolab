@@ -28,6 +28,12 @@ class StereoMatch
 public:
     StereoMatch::StereoMatch() : init_(false) {}
 
+    virtual bool configure(const nlohmann::json &config) = 0;
+
+    virtual bool compute(const common::StereoData &data, cv::Mat &disp) = 0;
+
+protected:
+
     bool check_data_input(const common::StereoData &data) const
     {
         if (data.left.empty() || data.right.empty() || (data.right.size() != data.left.size()))
@@ -38,10 +44,6 @@ public:
         return true;
     }
 
-    virtual bool configure(const nlohmann::json &config) = 0;
-
-    virtual bool compute(const common::StereoData &data, cv::Mat &disp) = 0;
-
     template <typename T>
     static float sub_pixel_refine(T cost1, T cost2, T cost3)
     {
@@ -49,7 +51,6 @@ public:
         return (cost1 - cost3) / (2.0f * a);
     }
 
-protected:
     bool init_;
 };
 
