@@ -44,6 +44,7 @@ configure_file(
 
 find_package(OpenCV REQUIRED)
 find_package(nlohmann_json REQUIRED)
+find_package (Eigen3 3.4 REQUIRED)
 
 add_library(sl_common
     ${PROJECT_SOURCE_DIR}/src/common/util.cc
@@ -55,10 +56,12 @@ target_include_directories(sl_common
 )
 target_link_libraries(sl_common
     PUBLIC
+    Eigen3::Eigen
     ${OpenCV_LIBS}
 )
 
 add_library(sl_algorithm
+    ${PROJECT_SOURCE_DIR}/src/algorithm/feature.cc
     ${PROJECT_SOURCE_DIR}/src/algorithm/stereo_match_bm.cc
     ${PROJECT_SOURCE_DIR}/src/algorithm/stereo_match_pm.cc
 )

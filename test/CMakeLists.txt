@@ -60,6 +60,19 @@ target_link_libraries(
     ${GTEST_LIBRARIES}
 )
 
+add_executable(test_feature ${PROJECT_SOURCE_DIR}/test/code/test_feature.cc)
+target_include_directories(
+    test_feature
+    PRIVATE
+    ${GTEST_INCLUDE_DIRS}
+)
+target_link_libraries(
+    test_feature
+    PRIVATE
+    sl_algorithm
+    ${GTEST_LIBRARIES}
+)
+
 add_test(
     NAME test_helloworld 
     COMMAND test_helloworld
@@ -78,4 +91,9 @@ add_test(
 add_test(
     NAME test_stereo_match 
     COMMAND test_stereo_match
+)
+
+add_test(
+    NAME test_feature 
+    COMMAND test_feature
 )
